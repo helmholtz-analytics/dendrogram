@@ -97,6 +97,26 @@ def get_dendrogram_args(args):
             "min_delta": min_delta,
             "min_npix": min_npix,
         }
+    elif args["example"] == "orion":
+        # Open the cube
+        path = f"{__file__[: __file__.index(os.path.basename(__file__))]}../data/orion_12CO.fits"
+        hdu = fits.open(path)[0]
+        data = hdu.data
+        hd = hdu.header
+
+        # Survey designs
+        sigma = 0.3  # K, noise level
+        ppb = 1.3  # pixels/beam
+
+        data = np.array(data, dtype=float)
+
+        return {
+            "data": data,
+            "min_npix": 3 * ppb,
+            "min_delta": 2 * sigma,
+            "min_value": sigma,
+        }
+
     else:
         raise NotImplementedError
 

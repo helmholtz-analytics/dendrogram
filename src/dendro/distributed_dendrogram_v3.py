@@ -292,7 +292,7 @@ class DistributedDendrogramV3(Dendrogram):
         if not isinstance(structure._indices, np.ndarray):
             structure._indices = np.array(structure._indices)
 
-        top_mask = structure._values > split_at
+        top_mask = structure._values >= split_at
 
         bottom_part = Structure(
             indices=structure._indices[~top_mask],
